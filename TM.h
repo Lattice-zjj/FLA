@@ -10,9 +10,12 @@ using namespace std;
 class TM {
 public:
     TM(Parse parse);
-
+    void dosolve(string);
 
 private:
+    
+
+
     vector<string> Q;
     vector<char> S;
     vector<char> G;
@@ -20,6 +23,7 @@ private:
     char B;
     vector<string> F;
     int N;
+    map<pair<string, string>, Transform> transRules;
 };
 
 #endif // TM_H

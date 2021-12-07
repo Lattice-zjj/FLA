@@ -5,7 +5,19 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <map>
 using namespace std;
+
+class Transform{
+public:
+    string write;
+    string lr;
+    string next;
+    Transform() {}
+    Transform(string write, string lr, string next) : 
+        write(write), lr(lr), next(next){}
+};
+
 class Parse{
 public:
     Parse(string);
@@ -28,6 +40,7 @@ private:
     char B;
     vector<string> F;
     int N;
+    map<pair<string, string>, Transform> transRules;
 };
 
 #endif // PARSE_H

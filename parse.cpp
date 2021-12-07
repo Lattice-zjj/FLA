@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 const std::vector<std::string> split(const std::string &str, const char &delimiter) {
@@ -21,38 +22,50 @@ Parse::Parse(std::string filename) {
 
 bool Parse::dosolve() {
     fstream infile(filename, ios::in);
-    while (!infile.eof()) {
-		string line;
-		getline(infile, line);
+    int lineno = 0;
+    while (!infile.eof())
+    {
+        lineno++;
+        string line;
+        getline(infile, line);
         string str = line.substr(0, line.find(';'));
-        // std::cout << str << std::endl;
         if (str.empty()) continue; 
         if (str[0] == '#') {
-            switch (str[1]) {
-                case 'Q':
-                    this->Q = parse_QF(line);
-                    break;
-                case 'S':
-                    this->S = parse_SG(line);
-                    break;
-                case 'G':
-                    this->G = parse_SG(line);
-                    break;
-                case 'q':
-                    parse_q0(line);
-                    break;
-                case 'B':
-                    parse_B(line);
-                    break;
-                case 'F':
-                    this->F = parse_QF(line);
-                    break;
-                case 'N':
-                    parse_N(line);
-                    break;
-                default:
-                    break;
-                }
+            if (str[1] == 'Q')
+                this->Q = parse_QF(line);
+            else if (str[1] == 'S')
+                this->S = parse_SG(line);
+            else if (str[1] == 'G')
+                this->G = parse_SG(line);
+            else if (str[1] == 'q' && str[2] == '0') 
+                parse_q0(line);
+            else if (str[1] == 'B')
+                parse_B(line);
+            else if (str[1] == 'F') 
+                this->F = parse_QF(line);
+            else if (str[1] == 'N') 
+                parse_N(line);
+            else {
+                std::cerr << filename << ":" << lineno << "\033[31m error:\033[0m '" << line[1] << "' is wrong; did you mean 'Q/S/G/q0/B/F/N'?" << std::endl;
+                std::cerr << setiosflags(ios::right) << setw(5) << lineno << " |" << line << endl;
+                std::cerr << "      "
+                          << "| "
+                          << "\033[31m^\033[0m"<< std::endl;
+                return false;
+            }
+        } else{
+            str.erase(str.find_last_not_of(" ") + 1);
+            vector<string> result = split(str, ' ');
+            // cout << str << " " << result.size() << endl;
+            if (result.size() != 5)
+            {
+                return false;
+            }
+            string current_state = result[0];
+            string current_tape = result[1];
+            Transform transform(result[2], result[3], result[4]);
+            this->transRules[std::pair<string, string>(current_state, current_tape)] = transform;
+            // cout<<transform.lr << std::endl;
         }
     }
     return true;

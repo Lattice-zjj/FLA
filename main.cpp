@@ -9,11 +9,15 @@ using namespace std;
 
 int main(int argc, char** argv){
     string filename = argv[1];
-    std::cout << filename << std::endl;
+    //std::cout << filename << std::endl;
     Parse parse(filename);
     parse.dosolve();
 
     TM tm(parse);
+    string str = argv[2];
+    tm.dosolve(str);
 
-    std::cout<<"\033[31mHello \033[34mworld!\033[0m"<<std::endl;
+    return 0;
+
+    // std::cout<<"\033[31mHello \033[34mworld!\033[0m"<<std::endl;
 }
