@@ -1,11 +1,13 @@
 #include "TM.h"
 
-TM::TM(vector<string> Q, vector<char> S, vector<char> G, char q0, char B, vector<string> F, int N){
-    this->Q = Q;
-    this->S = S;
-    this->G = G;
-    this->q0 = q0;
-    this->B = B;
-    this->F = F;
-    this->N = N;
+TM::TM(Parse parse){
+    this->Q = parse.Q;
+    this->S = parse.S;
+    this->G = parse.G;
+    this->q0 = parse.q0;
+    this->B = parse.B;
+    this->F = parse.F;
+    std::cout << this->F.size() << std::endl;
+    this->N = parse.N;
+    // std::cout << this->N << std::endl;
 }

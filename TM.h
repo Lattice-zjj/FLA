@@ -3,22 +3,23 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "parse.h"
 using namespace std;
 
 
 class TM {
 public:
-    TM(vector<string> Q, vector<char> S, vector<char> G, char q0, char B, vector<string> F, int N);
+    TM(Parse parse);
 
 
 private:
     vector<string> Q;
     vector<char> S;
     vector<char> G;
-    char q0;
+    string q0;
     char B;
     vector<string> F;
     int N;
 };
 
-#endif
+#endif // TM_H
