@@ -3,18 +3,21 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <iomanip>
 #include "parse.h"
+#include "ID.h"
 using namespace std;
 
 
 class TM {
 public:
     TM(Parse parse);
-    void dosolve(string);
+    bool dosolve(string);
 
 private:
-    
-
+    bool isIllegal(string);
+    bool checkStop(string);
 
     vector<string> Q;
     vector<char> S;

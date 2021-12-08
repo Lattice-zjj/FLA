@@ -17,7 +17,7 @@
 #B = _
 
 ; the set of final states
-#F = {halt_accept}
+#F = {halt_accept,halt_reject}
 
 ; the number of tapes
 #N = 2 

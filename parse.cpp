@@ -64,6 +64,8 @@ bool Parse::dosolve() {
             string current_state = result[0];
             string current_tape = result[1];
             Transform transform(result[2], result[3], result[4]);
+            // cout << current_state << " " << current_tape << endl;
+            // warning: transform
             this->transRules[std::pair<string, string>(current_state, current_tape)] = transform;
             // cout<<transform.lr << std::endl;
         }
