@@ -63,6 +63,13 @@
     "bit": "cpp",
     "ctime": "cpp",
     "iomanip": "cpp",
-    "map": "cpp"
+    "map": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "condition_variable": "cpp",
+    "cstring": "cpp",
+    "ratio": "cpp",
+    "regex": "cpp",
+    "shared_mutex": "cpp"
 }
 }

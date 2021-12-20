@@ -1,8 +1,9 @@
 #include "TM.h"
 #include <unistd.h>
 extern bool verbose;
-
-TM::TM(Parse parse){
+extern bool StepByStep;
+TM::TM(Parse parse)
+{
     this->Q = parse.Q;
     this->S = parse.S;
     this->G = parse.G;
@@ -24,7 +25,7 @@ bool TM::dosolve(string input) {
     bool Stop = true;
     while (Stop)
     {
-        // sleep(1);
+        if (StepByStep) sleep(1);
         id.step++;
         string nowTape = "";
         for (int tapeIndex = 0; tapeIndex < this->N; tapeIndex++)
@@ -61,14 +62,16 @@ bool TM::dosolve(string input) {
                 }
             }
         }
-        if (!isFind)
-            continue;
+        if (!isFind) {
+            break;
+        }
         id.nowState = tmp.next;
 
         //开始转移
         string write = tmp.write, lr = tmp.lr;
         // cout<<write<< std::endl;
         for (int tapeIndex = 0; tapeIndex < this->N; tapeIndex++) {
+
             char WriteChar = write[tapeIndex], LR = lr[tapeIndex];
             if (WriteChar != '*')
                 for (long unsigned int j = 0; j < id.tapes[tapeIndex].size();j++) 
@@ -107,11 +110,11 @@ bool TM::dosolve(string input) {
     int len = id.tapes[0].size();
     int start;
     for (start = 0; start < len; start++){
-        if (!(id.tapes[0].at(start) == '_' && id.headIndex[0]>id.Index[0].at(start))) break;
+        if (!(id.tapes[0].at(start) == '_')) break;
     }
     int end;
     for (end = len - 1; end >= 0; end--){
-        if (!(id.tapes[0].at(end) == '_' && id.headIndex[0]<id.Index[0].at(end))) break;
+        if (!(id.tapes[0].at(end) == '_')) break;
     }
     for (int j = start; j <= end; j++){
         result += id.tapes[0].at(j);

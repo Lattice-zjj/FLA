@@ -44,18 +44,18 @@ void ID::display() {
             cout << setiosflags(ios::left) << setw(5) << index;
         }
         cout << endl;
-
+        cout << "\033[32m";
         cout << "Tape" << i << "   :    ";
         for (int j = start; j <= end; j++) {
             cout << setiosflags(ios::left) << setw(5) << this->tapes[i].at(j);
         }
-
+        cout << "\033[0m";
         cout << endl;
 
         cout<< "Head" << i << "   :    ";
         for (int j = start; j <= end;j++) {
             if (this->Index[i].at(j) == this->headIndex[i])
-                cout << setiosflags(ios::left) << setw(5) << "^";
+                cout << setiosflags(ios::left) << setw(5) << "\033[33m^\033[0m";
             else
                 cout << setiosflags(ios::left) << setw(5) << " ";
         }
